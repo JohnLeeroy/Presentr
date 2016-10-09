@@ -14,33 +14,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.johnli.presentr.R;
-import com.johnli.presentr.RoomListAdapter;
+import com.johnli.presentr.presenter.RoomListPresenter;
+import com.johnli.presentr.view.RoomListView;
+import com.johnli.presentr.views.RoomListAdapter;
 import com.johnli.presentr.activity.RoomActivity;
 import com.johnli.presentr.fragment.dialog.EditTextDialogFragment;
-import com.johnli.presentr.fragment.dialog.ProgressDialogFragment;
 import com.johnli.presentr.model.Room;
-import com.johnli.presentr.model.provider.FRoomListProvider;
-import com.johnli.presentr.network.CreateRoomRequest;
-import com.johnli.presentr.network.FirebaseRequestManager;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 
-public class RoomListFragment extends Fragment implements RoomListAdapter.RoomSelectedListener, FRoomListProvider.RoomListProviderDelegate {
+public class RoomListFragment extends Fragment implements RoomListAdapter.RoomSelectedListener, RoomListView {
 
     List<Room> roomList;
-    FRoomListProvider provider;
 
     RecyclerView recyclerView;
     RoomListAdapter roomListAdapter;
 
     EditTextDialogFragment editTextDialogFragment;
     private String CREATE_ROOM_DIALOG_TAG = "CREATE_ROOM_DIALOG_TAG";
+
+    RoomListPresenter presenter;
 
     public RoomListFragment() {
         // Required empty public constructor
@@ -55,7 +52,7 @@ public class RoomListFragment extends Fragment implements RoomListAdapter.RoomSe
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        provider = new FRoomListProvider(this);
+        presenter = new RoomListPresenter();
     }
 
     @Override
@@ -66,8 +63,19 @@ public class RoomListFragment extends Fragment implements RoomListAdapter.RoomSe
         return view;
     }
 
-    void bindUi(View view) {
+    @Override
+    public void onStart() {
+        super.onStart();
+        presenter.attach(this);
+    }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        presenter.detach();
+    }
+
+    void bindUi(View view) {
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
@@ -85,7 +93,6 @@ public class RoomListFragment extends Fragment implements RoomListAdapter.RoomSe
     }
 
     void showCreateRoomDialogFragment() {
-
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         editTextDialogFragment = (EditTextDialogFragment) fragmentManager.findFragmentByTag(CREATE_ROOM_DIALOG_TAG);
         if (editTextDialogFragment == null) {
@@ -108,16 +115,7 @@ public class RoomListFragment extends Fragment implements RoomListAdapter.RoomSe
     }
 
     public void createRoom(String roomName) {
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid(); //HACK & REFACTOR
-
-        Room room = new Room();
-        room.setId(UUID.randomUUID().toString());
-        room.setTitle(roomName);
-        room.setCreatorId(userId);
-        room.setTimestamp(System.currentTimeMillis());
-        CreateRoomRequest request = new CreateRoomRequest(room);
-        FirebaseRequestManager.getInstance().sendRequest(request);
-        dismissCreateRoomDialogFragment();
+        presenter.createRoom(roomName);
     }
 
     @Override
@@ -135,7 +133,7 @@ public class RoomListFragment extends Fragment implements RoomListAdapter.RoomSe
     }
 
     @Override
-    public void publish(Map<String, Room> data) {
+    public void updateRoomList(Map<String, Room> data) {
         roomList = new ArrayList<Room>(data.values());
         roomListAdapter.setData(roomList);
         roomListAdapter.notifyDataSetChanged();

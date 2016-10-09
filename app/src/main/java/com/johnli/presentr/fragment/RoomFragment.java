@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.johnli.presentr.PostListAdapter;
+import com.johnli.presentr.views.PostListAdapter;
 import com.johnli.presentr.R;
 import com.johnli.presentr.model.QuestionPost;
 import com.johnli.presentr.model.provider.FQuestionPostProvider;

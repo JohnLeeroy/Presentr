@@ -1,10 +1,11 @@
-package com.johnli.presentr;
+package com.johnli.presentr.views;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.johnli.presentr.R;
 import com.johnli.presentr.model.Room;
 
 import java.util.ArrayList;

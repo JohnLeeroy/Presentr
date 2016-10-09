@@ -16,11 +16,6 @@ import com.johnli.presentr.presenter.CreateQuestionPresenter;
 
 import java.util.UUID;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CreateQuestionFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class CreateQuestionFragment extends Fragment {
 
     public static final String TAG = "CreateQuestionFragment";

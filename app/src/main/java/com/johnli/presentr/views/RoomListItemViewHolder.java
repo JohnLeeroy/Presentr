@@ -1,9 +1,10 @@
-package com.johnli.presentr;
+package com.johnli.presentr.views;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.johnli.presentr.R;
 import com.johnli.presentr.model.Room;
 
 /**
