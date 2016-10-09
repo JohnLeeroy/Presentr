@@ -42,7 +42,13 @@ public class RoomFragment extends Fragment implements PostListAdapter.QuestionPo
         View view = inflater.inflate(R.layout.fragment_room, container, false);
         bindUi(view);
         provider = new QuestionPostProvider(this);
-        provider.getPostsWithRoomId("room_id_one");
+
+        Bundle bundle = savedInstanceState;
+        if(bundle == null) {
+            bundle = getArguments();
+        }
+        String roomId = bundle.getString("roomId");
+        provider.getPostsWithRoomId(roomId);
 
         return view;
     }

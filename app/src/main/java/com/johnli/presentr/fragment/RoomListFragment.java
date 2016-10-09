@@ -31,7 +31,6 @@ public class RoomListFragment extends Fragment implements RoomListAdapter.RoomSe
     RecyclerView recyclerView;
     RoomListAdapter roomListAdapter;
 
-
     public RoomListFragment() {
         // Required empty public constructor
     }
@@ -72,6 +71,9 @@ public class RoomListFragment extends Fragment implements RoomListAdapter.RoomSe
     @Override
     public void onSelect(Room room) {
         Intent intent = new Intent(getActivity(), RoomActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("roomId", room.getId());
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 

@@ -30,9 +30,15 @@ public class RoomActivity extends AppCompatActivity {
             }
         });
 
-
+        Bundle bundle = savedInstanceState;
+        if(savedInstanceState == null) {
+            bundle = getIntent().getExtras();
+        }
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         RoomFragment roomFragment = RoomFragment.newInstance();
+        if(bundle != null) {
+            roomFragment.setArguments(bundle);
+        }
         transaction.replace(R.id.room_fragment, roomFragment, "");
         transaction.commit();
     }
