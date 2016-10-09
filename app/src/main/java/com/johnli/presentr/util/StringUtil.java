@@ -9,10 +9,6 @@ import java.util.regex.Pattern;
  */
 public class StringUtil {
 
-    public static boolean emptyOrNull(String val) {
-        return (val == null || val.isEmpty());
-    }
-
     public static boolean validEmail(String email) {
         Pattern pattern = Patterns.EMAIL_ADDRESS;
         return pattern.matcher(email).matches();

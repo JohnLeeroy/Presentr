@@ -1,7 +1,7 @@
 package com.johnli.presentr.model.provider;
 
 import com.google.firebase.auth.FirebaseUser;
-import com.johnli.presentr.model.FBUser;
+import com.johnli.presentr.model.FUser;
 import com.johnli.presentr.model.UserInterface;
 
 /**
@@ -14,8 +14,8 @@ public class FUserProvider implements UserProviderInterface {
         return null;
     }
 
-    public FBUser createFirebaseUser(FirebaseUser user) {
-        return new FBUser(user);
+    public FUser createFirebaseUser(FirebaseUser user) {
+        return new FUser(user);
     }
 
     private boolean doesUserExist(FirebaseUser user) {

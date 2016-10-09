@@ -56,12 +56,12 @@ public class RegisterPresenter {
             return false;
         }
 
-        if(StringUtil.emptyOrNull(password)) {
+        if(TextUtils.isEmpty(password)) {
             view.showErrorMessage("Password is invalid");
             return false;
         }
 
-        if(StringUtil.emptyOrNull(confirmPassword)) {
+        if(TextUtils.isEmpty(confirmPassword)) {
             view.showErrorMessage("Confirm Password is invalid");
             return false;
         }

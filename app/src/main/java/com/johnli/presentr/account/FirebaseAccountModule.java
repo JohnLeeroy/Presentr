@@ -8,7 +8,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.johnli.presentr.model.FBUser;
+import com.johnli.presentr.model.FUser;
 import com.johnli.presentr.model.provider.FUserProvider;
 import com.johnli.presentr.model.provider.UserProviderInterface;
 
@@ -53,7 +53,7 @@ public class FirebaseAccountModule implements AccountModuleInterface {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "signInAnonymously:onComplete:" + task.isSuccessful());
                         if(listener != null) {
-                            FBUser user = firebaseUserProvider.createFirebaseUser(mAuth.getCurrentUser());
+                            FUser user = firebaseUserProvider.createFirebaseUser(mAuth.getCurrentUser());
                             listener.onFinish(task.isSuccessful(), user);
                         }
                     }
@@ -65,7 +65,7 @@ public class FirebaseAccountModule implements AccountModuleInterface {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                FBUser user = firebaseUserProvider.createFirebaseUser(mAuth.getCurrentUser());
+                FUser user = firebaseUserProvider.createFirebaseUser(mAuth.getCurrentUser());
                 listener.onFinish(task.isSuccessful(), user);
             }
         });
@@ -81,7 +81,7 @@ public class FirebaseAccountModule implements AccountModuleInterface {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                FBUser user = firebaseUserProvider.createFirebaseUser(mAuth.getCurrentUser());
+                FUser user = firebaseUserProvider.createFirebaseUser(mAuth.getCurrentUser());
                 listener.onFinish(task.isSuccessful(), user);
             }
         });

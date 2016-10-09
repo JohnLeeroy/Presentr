@@ -4,11 +4,11 @@ import com.google.firebase.auth.FirebaseUser;
 /**
  * Created by johnli on 9/29/16.
  */
-public class FBUser implements UserInterface {
+public class FUser implements UserInterface {
 
     FirebaseUser user;
 
-    public FBUser(FirebaseUser user) {
+    public FUser(FirebaseUser user) {
         this.user = user;
     }
 
