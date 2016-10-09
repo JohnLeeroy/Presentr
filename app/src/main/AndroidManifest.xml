@@ -17,7 +17,8 @@
         </activity>
         <activity android:name=".activity.MainActivity">
         </activity>
-        <activity android:name=".activity.RoomListActivity" />
+        <activity android:name=".activity.RoomListActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".activity.RoomActivity"
             android:label="@string/title_activity_room"

@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.johnli.presentr.PostListAdapter;
 import com.johnli.presentr.R;
 import com.johnli.presentr.model.QuestionPost;
-import com.johnli.presentr.model.provider.QuestionPostProvider;
+import com.johnli.presentr.model.provider.FQuestionPostProvider;
 import com.johnli.presentr.view.RoomView;
 
 import java.util.ArrayList;
@@ -24,13 +24,13 @@ import java.util.Map;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class RoomFragment extends Fragment implements RoomView, PostListAdapter.QuestionPostSelectedListener, QuestionPostProvider.RoomProviderDelegate {
+public class RoomFragment extends Fragment implements RoomView, PostListAdapter.QuestionPostSelectedListener, FQuestionPostProvider.RoomProviderDelegate {
 
     List<QuestionPost> postList;
 
     RecyclerView recyclerView;
     PostListAdapter postListAdapter;
-    QuestionPostProvider provider;
+    FQuestionPostProvider provider;
     private String roomId;
 
     public RoomFragment() { }
@@ -44,7 +44,7 @@ public class RoomFragment extends Fragment implements RoomView, PostListAdapter.
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_room, container, false);
         bindUi(view);
-        provider = new QuestionPostProvider(this);
+        provider = new FQuestionPostProvider(this);
 
         Bundle bundle = savedInstanceState;
         if (bundle == null) {
@@ -85,8 +85,7 @@ public class RoomFragment extends Fragment implements RoomView, PostListAdapter.
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         CreateQuestionFragment createQuestionFragment = CreateQuestionFragment.newInstance();
 
-        //HACK & REFACTOR
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid(); //HACK & REFACTOR
         Bundle bundle = new Bundle();
         bundle.putString(CreateQuestionFragment.ROOM_ID_ARG_KEY, roomId);
         bundle.putString(CreateQuestionFragment.USER_ID_ARG_KEY, userId);

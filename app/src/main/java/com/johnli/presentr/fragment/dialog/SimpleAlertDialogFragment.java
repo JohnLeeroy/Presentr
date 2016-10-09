@@ -1,4 +1,4 @@
-package com.johnli.presentr.fragment;
+package com.johnli.presentr.fragment.dialog;
 
 import android.app.Dialog;
 import android.os.Bundle;

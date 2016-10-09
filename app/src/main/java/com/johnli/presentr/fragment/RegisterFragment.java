@@ -17,6 +17,7 @@ import com.johnli.presentr.account.AccountManager;
 import com.johnli.presentr.account.AccountModuleInterface;
 import com.johnli.presentr.account.FirebaseAccountModule;
 import com.johnli.presentr.activity.RoomListActivity;
+import com.johnli.presentr.fragment.dialog.ProgressDialogFragment;
 import com.johnli.presentr.presenter.RegisterPresenter;
 import com.johnli.presentr.view.RegisterView;
 

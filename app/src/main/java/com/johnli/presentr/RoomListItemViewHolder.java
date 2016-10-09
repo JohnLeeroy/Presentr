@@ -30,7 +30,7 @@ public class RoomListItemViewHolder extends RecyclerView.ViewHolder implements V
 
     public void setRoom(Room room) {
         this.room = room;
-        titleLabel.setText(room.getName());
+        titleLabel.setText(room.getTitle());
     }
 
     @Override

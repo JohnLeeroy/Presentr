@@ -1,31 +1,49 @@
 package com.johnli.presentr.model;
 
+import com.google.firebase.database.Exclude;
+
 /**
  * Created by johnli on 9/29/16.
  */
 public class Room {
 
     private String id;
-    public String title;
-    public String creatorId;
-    public long timestamp;
+    private String title;
+    private String creatorId;
+    private long timestamp;
 
     public Room() {}
 
-    public Room(String id, String title) {
-        this.id = id;
-        this.title = title;
+    @Exclude
+    public String getId() {
+        return id;
     }
 
     public void setId(String id) {
         this.id = id;
     }
-    
-    public String getName() {
+
+    public String getTitle() {
         return title;
     }
 
-    public String getId() {
-        return id;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
+    }
+
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 }

@@ -9,7 +9,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.johnli.presentr.model.FBUser;
-import com.johnli.presentr.model.provider.FirebaseUserProvider;
+import com.johnli.presentr.model.provider.FUserProvider;
 import com.johnli.presentr.model.provider.UserProviderInterface;
 
 /**
@@ -20,11 +20,11 @@ public class FirebaseAccountModule implements AccountModuleInterface {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private final String TAG = "FirebaseAccountModule";
-    FirebaseUserProvider firebaseUserProvider;
+    FUserProvider firebaseUserProvider;
 
     public FirebaseAccountModule() {
         initFirebaseAuth();
-        firebaseUserProvider = new FirebaseUserProvider();
+        firebaseUserProvider = new FUserProvider();
     }
 
     void initFirebaseAuth() {

@@ -7,7 +7,7 @@ import com.johnli.presentr.model.UserInterface;
 /**
  * Created by johnli on 10/8/16.
  */
-public class FirebaseUserProvider implements UserProviderInterface {
+public class FUserProvider implements UserProviderInterface {
     @Override
     public UserInterface getUser(String id) {
         //TODO

@@ -6,8 +6,11 @@ import android.os.Bundle;
 
 import com.johnli.presentr.R;
 import com.johnli.presentr.fragment.RoomListFragment;
+import com.johnli.presentr.fragment.dialog.EditTextDialogFragment;
 
-public class RoomListActivity extends AppCompatActivity {
+public class RoomListActivity extends AppCompatActivity implements EditTextDialogFragment.EditTextDialogListener{
+
+    private RoomListFragment roomListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,8 +18,18 @@ public class RoomListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_room_list);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        RoomListFragment roomListFragment = RoomListFragment.newInstance();
+        roomListFragment = RoomListFragment.newInstance();
         transaction.replace(android.R.id.content, roomListFragment, "");
         transaction.commit();
+    }
+
+    @Override
+    public void onEditTextOk(String editTextString) {
+        roomListFragment.createRoom(editTextString);
+    }
+
+    @Override
+    public void onEditTextCancel() {
+
     }
 }

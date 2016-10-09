@@ -1,41 +1,45 @@
 package com.johnli.presentr.model.provider;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.johnli.presentr.model.Room;
+import com.google.firebase.database.Query;
+import com.johnli.presentr.model.QuestionPost;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by johnli on 10/8/16.
+ * Created by johnli on 9/29/16.
  */
-public class RoomListProvider implements ChildEventListener {
+public class FQuestionPostProvider implements ChildEventListener {
     private DatabaseReference mDatabase;
-    private String TAG = "ADFJGSDKHG";
+    private String TAG = "akjknfkljsfgklli";
 
-    private Map<String, Room> rooms;
-    RoomListProviderDelegate delegate;
+    private Map<String, QuestionPost> posts;
+    RoomProviderDelegate delegate;
 
-    public RoomListProvider(@NonNull RoomListProviderDelegate delegate) {
+    public FQuestionPostProvider(@NonNull RoomProviderDelegate delegate) {
         this.delegate = delegate;
-        rooms = new HashMap<>();
+        posts = new HashMap<>();
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference roomRef = mDatabase.child("rooms");
+    }
+    
+    public void getPostsWithRoomId(String id) {
+        Query roomRef = mDatabase.child("questions").child(id);
         roomRef.addChildEventListener(this);
     }
 
     private void updateRoom(DataSnapshot snapshot) {
-        Room room = snapshot.getValue(Room.class);
-        room.setId(snapshot.getKey());
-        rooms.put(room.getId(), room);
-        delegate.publish(rooms);
+        QuestionPost questionPost = snapshot.getValue(QuestionPost.class);
+        questionPost.setId(snapshot.getKey());
+        questionPost.setRoomId(snapshot.getRef().getParent().getKey());
+        posts.put(questionPost.getId(), questionPost);
+        delegate.publish(posts);
     }
 
     @Override
@@ -51,7 +55,7 @@ public class RoomListProvider implements ChildEventListener {
     @Override
     public void onChildRemoved(DataSnapshot dataSnapshot) {
         String key = dataSnapshot.getKey();
-        rooms.remove(key);
+        posts.remove(key);
     }
 
     @Override
@@ -64,8 +68,8 @@ public class RoomListProvider implements ChildEventListener {
 
     }
 
-    public interface RoomListProviderDelegate {
+    public interface RoomProviderDelegate {
         //TODO refactor & optimize
-        void publish(Map<String, Room> data);
+        void publish(Map<String, QuestionPost> data);
     }
 }

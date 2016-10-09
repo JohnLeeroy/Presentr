@@ -10,7 +10,7 @@ import com.johnli.presentr.R;
 import com.johnli.presentr.account.AccountManager;
 import com.johnli.presentr.account.AccountModuleInterface;
 import com.johnli.presentr.account.FirebaseAccountModule;
-import com.johnli.presentr.fragment.ProgressDialogFragment;
+import com.johnli.presentr.fragment.dialog.ProgressDialogFragment;
 import com.johnli.presentr.presenter.LoginPresenterImpl;
 import com.johnli.presentr.view.LoginView;
 

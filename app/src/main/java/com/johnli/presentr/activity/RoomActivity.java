@@ -39,7 +39,5 @@ public class RoomActivity extends AppCompatActivity {
                 roomFragment.createQuestionPressed();
             }
         });
-
     }
-
 }
