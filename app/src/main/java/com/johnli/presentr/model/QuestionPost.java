@@ -1,15 +1,20 @@
 package com.johnli.presentr.model;
 
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.IgnoreExtraProperties;
+
 /**
  * Created by johnli on 9/29/16.
  */
-public class QuestionPost implements PostInterface {
+@IgnoreExtraProperties
+public class QuestionPost{
 
     private String id;
     private String roomId;
-    public String posterId;
-    public String title;
-    public int upvotes;
+
+    private String posterId;
+    private String title;
+    private int upVotes;
 
     public QuestionPost() { }
 
@@ -22,31 +27,23 @@ public class QuestionPost implements PostInterface {
         this.id = id;
     }
 
-    @Override
-    public String getId() {
-        return id;
-    }
+    @Exclude
+    public String getId() { return id; }
 
-    @Override
-    public String getTitle() {
-        return title;
-    }
+    @Exclude
+    public String getRoomId() { return roomId; }
 
-    @Override
-    public String getPosterId() {
-        return posterId;
-    }
+    public String getTitle() { return title; }
 
-    @Override
-    public int getVoteCount() {
-        return upvotes;
-    }
+    public String getPosterId() { return posterId; }
 
-    public String getRoomId() {
-        return roomId;
-    }
+    public int getUpVotes() { return upVotes; }
 
-    public void setRoomId(String roomId) {
-        this.roomId = roomId;
-    }
+    public void setRoomId(String roomId) { this.roomId = roomId; }
+
+    public void setPosterId(String posterId) { this.posterId = posterId; }
+
+    public void setTitle(String title) { this.title = title; }
+
+    public void setUpVotes(int upVotes) { this.upVotes = upVotes; }
 }

@@ -2,35 +2,38 @@ package com.johnli.presentr.fragment;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.johnli.presentr.PostListAdapter;
 import com.johnli.presentr.R;
 import com.johnli.presentr.model.QuestionPost;
 import com.johnli.presentr.model.provider.QuestionPostProvider;
+import com.johnli.presentr.view.RoomView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  * A placeholder fragment containing a simple view.
  */
-public class RoomFragment extends Fragment implements PostListAdapter.QuestionPostSelectedListener, QuestionPostProvider.RoomProviderDelegate {
+public class RoomFragment extends Fragment implements RoomView, PostListAdapter.QuestionPostSelectedListener, QuestionPostProvider.RoomProviderDelegate {
 
     List<QuestionPost> postList;
 
     RecyclerView recyclerView;
     PostListAdapter postListAdapter;
     QuestionPostProvider provider;
+    private String roomId;
 
-    public RoomFragment() {
-    }
+    public RoomFragment() { }
 
     public static RoomFragment newInstance() {
         return new RoomFragment();
@@ -44,10 +47,10 @@ public class RoomFragment extends Fragment implements PostListAdapter.QuestionPo
         provider = new QuestionPostProvider(this);
 
         Bundle bundle = savedInstanceState;
-        if(bundle == null) {
+        if (bundle == null) {
             bundle = getArguments();
         }
-        String roomId = bundle.getString("roomId");
+        roomId = bundle.getString("roomId");
         provider.getPostsWithRoomId(roomId);
 
         return view;
@@ -75,5 +78,23 @@ public class RoomFragment extends Fragment implements PostListAdapter.QuestionPo
         postList = new ArrayList<>(data.values());
         postListAdapter.setData(postList);
         postListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void createQuestionPressed() {
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        CreateQuestionFragment createQuestionFragment = CreateQuestionFragment.newInstance();
+
+        //HACK & REFACTOR
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Bundle bundle = new Bundle();
+        bundle.putString(CreateQuestionFragment.ROOM_ID_ARG_KEY, roomId);
+        bundle.putString(CreateQuestionFragment.USER_ID_ARG_KEY, userId);
+        createQuestionFragment.setArguments(bundle);
+
+        FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
+        transaction.replace(android.R.id.content, createQuestionFragment, CreateQuestionFragment.TAG);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

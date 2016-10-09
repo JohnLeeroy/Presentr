@@ -1,0 +1,25 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    tools:context="com.johnli.presentr.fragment.CreateQuestionFragment">
+
+    <EditText
+        android:id="@+id/question_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="256dp"
+        android:layout_margin="16dp"
+        android:singleLine="false"
+        android:hint="Write your question here"/>
+
+    <Button
+        android:id="@+id/create_question_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Post Question"
+        />
+
+</LinearLayout>
